@@ -1,9 +1,12 @@
 contacts = []
-contact = {"name": "Peyshie",
-           "phone": "0723456789"}
-contacts.append(contact)
-print(contacts)
-
+try:
+    with open("contacts.txt", "r") as file:
+         for line in file:
+             name, phone = line.strip().split(",")
+             contacts.append({"name": name, "phone": phone})
+except FileNotFoundError:
+    pass
+    
 while True:
     name = input("Enter name: ")
     phone = input("Enter phone number: ")
@@ -13,6 +16,9 @@ while True:
     again = input("Add another contact? (yes/no): ")
     if again.lower() == "no":
         break
+with open("contacts.txt", "w") as file:
+     for contact in contacts:
+          file.write(contact["name"] + "," + contact["phone"] + "\n")
 
 print("\n--- MY CONTACTS ---")
 
