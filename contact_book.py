@@ -4,8 +4,8 @@ class Contact:
           self.phone = phone
      
      def show (self):
-          print("Name:", self.name)
-          print("Phone:", self.phone)
+          contact.show("Name:", self.name)
+          contact.show("Phone:", self.phone)
 contacts = []
 try:
     with open("contacts.txt", "r") as file:
