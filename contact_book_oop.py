@@ -27,18 +27,46 @@ class ContactBook:
                 found = True
             if not found:
                 print("Contact not found.")
+    def save(self):
+        with open("contacts.txt", "w")as file:
+            for contact in self.contacts:
+                file.write(contact.name + "," + contact.phone + "\n")
 
+    def load(self):
+        try:
+            with open("contacts.txt", "r") as file:
+                for line in file:
+                    parts = line.strip().split(",")
+                    if len(parts) == 2:
+                        self.add(parts[0], parts[1])
+        except FileNotFoundError:
+            pass
 
 
 
 
 book = ContactBook()
-book.add("Peyshie", "0789654321")
-book.add("Amina", "0767895423")
-book.add("Griffin", "0762341785")
-book.show_all()
-book.search("amina")
-book.search("Kingsley")
+book.load()
 
-print(len(book.contacts))
-print(book.contacts[0].name)
+while True:
+    print("\n1. Add contact")
+    print("2. Show all")
+    print("3. Search")
+    print("4. Exit")
+
+    choice = input ("Choose an option: ") 
+
+    if choice == "1":
+        name = input("Enter name: ")
+        phone = input("Enter phone number: ")
+        book.add(name, phone)
+        book.save()
+    elif choice == "2":
+        book.show_all()
+    elif choice == "3":
+        book.search(input("Enter name to search: "))
+    elif choice == "4":
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice.")
