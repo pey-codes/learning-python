@@ -27,6 +27,18 @@ class ContactBook:
                 found = True
             if not found:
                 print("Contact not found.")
+
+    def delete(self, delete_name):
+        found = False
+        for contact in self.contacts:
+            if contact.name.lower() == delete_name.lower():
+                self.contacts.remove(contact)
+                print("Contact deleted.")
+                found = True
+                break
+        if not found:
+            print("Contact not found.")
+        
     def save(self):
         with open("contacts.txt", "w")as file:
             for contact in self.contacts:
@@ -52,7 +64,8 @@ while True:
     print("\n1. Add contact")
     print("2. Show all")
     print("3. Search")
-    print("4. Exit")
+    print("4. Delete")
+    print("5. Exit")
 
     choice = input ("Choose an option: ") 
 
@@ -66,6 +79,9 @@ while True:
     elif choice == "3":
         book.search(input("Enter name to search: "))
     elif choice == "4":
+        book.delete(input("Enter name to delete: "))
+        book.save()
+    elif choice == "5":
         print("Goodbye!")
         break
     else:
