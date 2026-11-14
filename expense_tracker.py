@@ -5,6 +5,7 @@ cursor = connection.cursor()
 
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS expenses(
+        id INTEGER PRIMARY KEY,
         item TEXT,
         amount FLOAT,
         quantity INTEGER
@@ -33,7 +34,11 @@ cursor.execute(
 cursor.execute("SELECT * FROM expenses")
 rows = cursor.fetchall()
 for row in rows:
-    print(row[0], ":", row[1], "*", row[2])
+    print(row[0], ":", row[1], row[2], "*", row[3])
+
+cursor.execute("SELECT SUM(amount * quantity) FROM expenses")
+total = cursor.fetchone()[0]
+print("Total spent:", total)
 
 
 connection.commit()
