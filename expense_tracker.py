@@ -23,7 +23,7 @@ while True:
         quantity = int(input("Quantity: "))
         break
     except ValueError:
-        print("Please enter a number.")
+        print("Please enter a whole number.")
 
 cursor.execute(
     "INSERT INTO expenses(item, amount, quantity) VALUES (?, ?, ?)",
